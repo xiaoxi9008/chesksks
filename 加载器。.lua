@@ -29,7 +29,7 @@ local Window = WindUI:CreateWindow({
     },
 })
 
-local var6 = Window:SetBackgroundImage("rbxassetid://129409216403058");
+local var6 = Window:SetBackgroundImage("rbxassetid://91084544502673");
 Window:EditOpenButton(
     {
         Title = "XIAOXI",
