@@ -1,6 +1,3 @@
-
----Leak by Yuxingchen NOL
-
 local Env = getfenv()
 local var1 = game:HttpGet("https://github.com/Footagesus/WindUI/releases/download/1.6.41/main.lua");
 local var2 = loadstring(var1);
