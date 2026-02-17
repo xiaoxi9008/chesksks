@@ -9,7 +9,7 @@ _G.XION_Execution_Count = 1
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
     Title = "XIAOXI脚本",
-    Icon = "crown",
+    Icon = 123691280552142,
     Author = "by小西制作",
     AuthorImage = 90840643379863,
     Folder = "CloudHub",
@@ -29,11 +29,10 @@ local Window = WindUI:CreateWindow({
     },
 })
 
-local var6 = Window:SetBackgroundImage("rbxassetid://91084544502673");
 Window:EditOpenButton(
     {
         Title = "XIAOXI",
-        Icon = "crown",
+        Icon = 123691280552142,
         CornerRadius = UDim.new(0, 13),
         StrokeThickness = 4,
         Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(186, 19, 19)),ColorSequenceKeypoint.new(1, Color3.fromRGB(8, 60, 129))}),
@@ -295,6 +294,9 @@ end)
 
 Button(Tabjb, "鱼", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaoxi9008/XIAOXIBUXINB/refs/heads/main/%E9%B1%BC.lua"))() 
+end)
+Button(Tabjb, "XIAOXI自瞄推荐闪光", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaoxi9008/XIAOXIBUXINB/refs/heads/main/%E5%B0%8F%E8%A5%BF%E8%87%AA%E7%9E%84.lua"))() 
 end)
 --=======姥爷司空别翻过头了===========
 --=======姥爷司空别翻过头了===========
