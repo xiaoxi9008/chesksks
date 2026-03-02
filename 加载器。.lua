@@ -5,7 +5,25 @@ end
 
 _G.XION_Script_Loaded = true
 _G.XION_Execution_Count = 1
-
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "因为你检测到可执行加载器",
+  Text = "正在启动XIAOXI加载器",
+  Icon = "rbxassetid://123691280552142",
+  Duration = 1,
+  Callback = bindable,
+  Button1 = "谢谢使用",
+  Button2 = "😘",
+})
+wait(1.5)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+  Title = "祝你玩得开心",
+  Text = "卡密进群获取 ",
+  Icon = "rbxassetid://123691280552142",
+  Duration = 1,
+  Callback = bindable,
+  Button1 = "qq群：705378396",
+  Button2 = "作者qq：3574769415",
+})
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
     Title = "XIAOXI脚本",
@@ -15,18 +33,22 @@ local Window = WindUI:CreateWindow({
     Folder = "CloudHub",
     Size = UDim2.fromOffset(560, 360),
     KeySystem = {
-        Key = { "我爱大司马", "小西nb" }, 
+        Key = { "我爱大司马", "小西nb", "宇星辰", "阵雨眉目" }, 
         Note = "请输入卡密",
         SaveKey = false,
-        Background = "rbxassetid://122305865891820", 
     },
     Transparent = true,
     Background = "rbxassetid://122305865891820",
-    BackgroundTransparency = 0.3, 
+    BackgroundImageTransparency = 0.5,
     User = {
         Enabled = true,
         Callback = function() 
-            print("clicked") 
+        WindUI:Notify({
+            Title = "点击了自己",
+            Content = "没什么",
+            Duration = 1,
+            Icon = "4483362748"
+        })
         end,
         Anonymous = true
     },
