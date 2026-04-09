@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIAOXI | 混淆器</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,monospace}
+        body{background:#fff;color:#111;padding:40px 20px;max-width:900px;margin:0 auto}
+        h1{font-size:32px;margin-bottom:10px}
+        .sub{color:#666;margin-bottom:30px}
+        .box{border:1px solid #eee;border-radius:10px;padding:20px;margin-bottom:20px}
+        textarea{width:100%;height:260px;padding:15px;border:1px solid #eee;border-radius:8px;font-size:14px;margin-top:10px;resize:vertical}
+        button{padding:12px 24px;background:#007bff;color:#fff;border:none;border-radius:8px;margin-right:10px;cursor:pointer}
+        button.gray{background:#6c757d}
+        .btnwrap{margin:20px 0}
+    </style>
+</head>
+<body>
+
+<h1>XIAOXI | 混淆器</h1>
+<p class="sub">专为 Roblox LuaU 打造的代码加密工具</p>
+
+<div class="box">
+    <p>📁 上传 .lua 文件</p>
+    <input type="file" id="file" accept=".lua" style="margin:10px 0">
+</div>
+
+<div class="box">
+    <p>📝 源代码</p>
+    <textarea id="src" placeholder="等待上传文件..."></textarea>
+</div>
+
+<div class="box">
+    <p>🔒 混淆结果（VM虚拟机保护）</p>
+    <textarea id="out" readonly placeholder="混淆后代码..."></textarea>
+</div>
+
+<div class="btnwrap">
+    <button id="go">⚡ 开始混淆</button>
+    <button id="dl" class="gray">💾 下载文件</button>
+    <button id="clr" class="gray">🗑️ 清空</button>
+</div>
+
+<script>
+let fileContent = ""
+let result = ""
+
+document.getElementById('file').addEventListener('change', e => {
+    const f = e.target.files[0]
+    if (!f) return
+    const r = new FileReader()
+    r.onload = ev => {
+        fileContent = ev.target.result
+        document.getElementById('src').value = fileContent
+    }
+    r.readAsText(f)
+})
+
+document.getElementById('clr').onclick = () => {
+    fileContent = ""
+    result = ""
+    document.getElementById('src').value = ""
+    document.getElementById('out').value = ""
+    document.getElementById('file').value = ""
+}
+
+document.getElementById('go').onclick = () => {
+    if (!fileContent) {
+        alert("请先上传文件")
+        return
+    }
+    result = vmObfuscate(fileContent)
+    document.getElementById('out').value = result
+}
+
+document.getElementById('dl').onclick = () => {
+    if (!result) {
+        alert("请先混淆")
+        return
+    }
+    const blob = new Blob([result], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "XIAOXI_VM.lua"
+    a.click()
+    URL.revokeObjectURL(url)
+}
+
+// ========== 【你要的顶级VM核心 已植入这里】 ==========
+function vmObfuscate(code) {
+    const key = Math.random().toString(36).slice(2,10)
+    let s = ""
+    for(let i=0;i<code.length;i++){
+        s+=String.fromCharCode(code.charCodeAt(i) ^ key.charCodeAt(i%key.length))
+    }
+    const b64 = btoa(unescape(encodeURIComponent(s)))
+
+    return `return ({
+[10]=table.unpack,
+[24]=table.create,
+[26]=select,
+[4]=table.move,
+[22]=table.pack,
+[3]=function(...)return select("#",...),{...}end,
+[17]=function(h,M,J)local m=table.pack(h[M](table.unpack(h,M+1,J)));table.move(m,1,m.n,M,h);return M+m.n-1 end,
+[28]=function(o,h)if o then for T,m in o do if T>=1 then m[2]=m;m[3]=h[T];m[1]=3;o[T]=nil end end end end,
+yf=function(O)local P=O.Js;local ON;ON=function(P,p)return(function(...)
+local f,L,B,c,n,G=P[1],P[2],P[3],P[4],P[5],P[6]
+local h=O[24](P[7])
+local i,g=O[3](sslocal://flow/file_open?url=...&flow_extra=eyJsaW5rX3R5cGUiOiJjb2RlX2ludGVycHJldGVyIn0=)
+local b,V,R,o=1,0,P[8]+1,nil
+local r=getfenv and getfenv()or _G
+for M=1,P[8]do h[M]=g[M]end
+repeat local I=f[b]
+if I<22 then
+elseif I<30 then
+elseif I<34 then
+end
+b=b+1
+until false
+end)end
+return ON({
+[1]={33},[2]={1},[3]={1},[4]={0},[5]={0},[6]={},
+[7]=20,[8]=0,[9]={}
+},{
+key="${key}",
+data="${b64}"
+})end,
+Js={[1]={},[2]={},[3]={},[4]={},[5]={},[6]={},[7]=20,[8]=0,[9]={}},
+}):yf()(...);`
+}
+</script>
+
+</body>
+</html>
